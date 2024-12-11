@@ -16,7 +16,7 @@ struct ContentView: View {
                 FormNavigation(currentStep: $currentStep, gender: $gender, weight: $weight, height: $height)
                     .tag(1)
 
-                ProfileView(currentStep: $currentStep, gender: $gender, weight: $weight, height: $height)
+                CharacterListView(currentStep: $currentStep, gender: $gender, weight: $weight, height: $height)
                     .tag(2)
             }
             .edgesIgnoringSafeArea(.top)
@@ -24,6 +24,8 @@ struct ContentView: View {
             VStack {
                 Spacer() // Push NavBar to the bottom
                 NavBar(selectedTab: $selectedTab)
+                    .background(Color(.systemBackground))
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
             }
         }
     }

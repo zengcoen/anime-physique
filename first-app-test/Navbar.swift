@@ -48,6 +48,6 @@ struct NavBar: View {
             .frame(maxWidth: .infinity) // Ensure buttons take equal space
         }
         .padding(.vertical, 10)
-        .cornerRadius(10) // Optional: rounded corners for styling
+        .background(Color(.systemGray6)) // Optional background color
     }
 }

@@ -13,7 +13,7 @@ struct Home: View {
                 Spacer()
 
                 // Display the image with rounded corners and closer to the middle
-                Image("toji-physique")
+                Image("toji")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 300) // Adjust the height as needed
