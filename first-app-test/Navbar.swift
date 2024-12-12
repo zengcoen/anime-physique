@@ -33,16 +33,30 @@ struct NavBar: View {
             }
             .frame(maxWidth: .infinity) // Ensure buttons take equal space
 
-            // Profile Button
+            // Top Characters Button
             Button(action: {
                 selectedTab = 2
             }) {
                 VStack {
-                    Image(systemName: "person.crop.circle")
+                    Image(systemName: "star.fill")
                         .foregroundColor(selectedTab == 2 ? .blue : .gray)
-                    Text("Profile")
+                    Text("Top Characters")
                         .font(.caption)
                         .foregroundColor(selectedTab == 2 ? .blue : .gray)
+                }
+            }
+            .frame(maxWidth: .infinity) // Ensure buttons take equal space
+
+            // Profile Button
+            Button(action: {
+                selectedTab = 3
+            }) {
+                VStack {
+                    Image(systemName: "person.crop.circle")
+                        .foregroundColor(selectedTab == 3 ? .blue : .gray)
+                    Text("Profile")
+                        .font(.caption)
+                        .foregroundColor(selectedTab == 3 ? .blue : .gray)
                 }
             }
             .frame(maxWidth: .infinity) // Ensure buttons take equal space

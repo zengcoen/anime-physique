@@ -16,7 +16,10 @@ struct ContentView: View {
                     .tag(1)
                 CharacterListView(currentStep: $currentStep, gender: $gender, weight: $weight, height: $height)
                     .tag(2)
+                TopCharactersView()
+                    .tag(3)
             }
+            
             .edgesIgnoringSafeArea(.top)
 
             VStack {

@@ -1,51 +1,5 @@
 import SwiftUI
 
-struct Character: Identifiable {
-    let id = UUID()
-    let name: String
-    let image: String // Assume this is the name of an asset in your project
-    let description: String
-    let attributes: [String: Int] // Attribute name and score
-    let verse: String // New property for the character's verse
-}
-
-
-struct CharacterData {
-    static let allCharacters: [Character] = [
-        Character(
-            name: "Toji Fushiguro",
-            image: "toji",
-            description: "A skilled and powerful fighter with unmatched abilities.",
-            attributes: [
-                "Strength": 98,
-                "Speed": 95,
-                "Endurance": 92,
-                "Flexibility": 85,
-                "Combat Technique": 97,
-                "Durability": 90
-            ],
-            verse: "Jujutsu Kaisen"
-        ),
-        Character(
-            name: "Garou",
-            image: "garou",
-            description: "A brave warrior known for his heroic deeds.",
-            attributes: [
-                "Strength": 85,
-                "Speed": 80,
-                "Endurance": 88,
-                "Flexibility": 78,
-                "Combat Technique": 84,
-                "Durability": 87
-            ],
-            verse: "One Punch Man"
-        )
-        // Add more characters as needed
-    ]
-}
-
-
-
 struct CharacterListView: View {
     @Binding var currentStep: FormStep
     @Binding var gender: String

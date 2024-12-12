@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct first_app_testApp: App {
+struct AnimePhysiqueApp: App { // Updated app struct name
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
