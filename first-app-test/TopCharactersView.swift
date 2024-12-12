@@ -42,6 +42,7 @@ struct TopCharactersView: View {
                                     .fontWeight(.semibold)
                                     .lineLimit(2) // Allows wrapping
                                     .multilineTextAlignment(.leading) // Align text to the leading edge
+                                    .foregroundColor(.white) // Set the text color to white
 
                                 Spacer()
 
@@ -49,7 +50,7 @@ struct TopCharactersView: View {
                                 Text("\(rating)%")
                                     .font(.title) // Larger percentage font
                                     .fontWeight(.bold)
-                                    .foregroundColor(percentageColor(for: character)) // Change color based on rank
+                                    .foregroundColor(.blue) // Set the text color to blue
                             }
                             .padding()
                             .background(Color(.secondarySystemBackground)) // Default background

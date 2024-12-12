@@ -63,7 +63,7 @@ struct CharacterData {
         ),
         Character(
             name: "Roronoa Zoro",
-            image: "zoro",
+            image: "roronoa",
             description: "A swordsman with relentless determination and immense power.",
             attributes: [
                 "Strength": 95,
