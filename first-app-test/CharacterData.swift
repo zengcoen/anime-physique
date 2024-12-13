@@ -10,11 +10,21 @@ import SwiftUI
 struct Character: Identifiable {
     let id = UUID()
     let name: String
-    let image: String // Assume this is the name of an asset in your project
+    let image: String
     let description: String
-    let attributes: [String: Int] // Attribute name and score
-    let verse: String // New property for the character's verse
+    let attributes: [String: Int]
+    let verse: String
+
+    var workoutPlanTitle: String
+    var warmUp: String
+    var mainWorkout: String
+    var finisher: String
+
+    var isHearted: Bool = false // New property to track if the character is hearted
+    var level: Int = 1
+    var progress: Double = 0
 }
+
 
 
 struct CharacterData {
@@ -31,7 +41,25 @@ struct CharacterData {
                 "Combat Technique": 97,
                 "Durability": 90
             ],
-            verse: "Jujutsu Kaisen"
+            verse: "Jujutsu Kaisen",
+            workoutPlanTitle: "The Sorcerer Slayer Routine",
+            warmUp: """
+            - High knees (1 min)
+            - Shadow boxing (1 min)
+            - Jump squats (30 sec)
+            - Dynamic stretches (1 min)
+            """,
+            mainWorkout: """
+            1. Box Jumps: 3 sets of 10 reps
+            2. Weighted Lunges: 3 sets of 12 reps per leg
+            3. Russian Twists: 3 sets of 15 reps per side
+            4. Push-Up Variations: 3 sets of 12 reps (regular, diamond, explosive)
+            5. Sprints: 4 rounds of 30 seconds full speed, 30 seconds rest
+            """,
+            finisher: """
+            1. Plank-to-Side-Knee Drive: 3 sets of 10 per side
+            2. Burpee to Broad Jump: 3 sets of 8 reps
+            """
         ),
         Character(
             name: "Garou",
@@ -45,7 +73,25 @@ struct CharacterData {
                 "Combat Technique": 84,
                 "Durability": 87
             ],
-            verse: "One Punch Man"
+            verse: "One Punch Man",
+            workoutPlanTitle: "The Hero Hunter Routine",
+            warmUp: """
+            - Jumping jacks (1 min)
+            - Dynamic punches (1 min)
+            - Arm circles (30 sec)
+            - Bodyweight squats (1 min)
+            """,
+            mainWorkout: """
+            1. Shadow Boxing: 3 sets of 2 minutes each
+            2. Plyometric Push-Ups: 3 sets of 12 reps
+            3. Jump Squats: 3 sets of 15 reps
+            4. Lateral Lunges: 3 sets of 10 reps per leg
+            5. Interval Sprints: 5 rounds of 20 seconds full speed, 40 seconds jog
+            """,
+            finisher: """
+            1. Plank Holds: 3 sets of 1 minute
+            2. Dynamic Stretching Cooldown: 5 minutes
+            """
         ),
         Character(
             name: "Levi Ackerman",
@@ -59,7 +105,24 @@ struct CharacterData {
                 "Combat Technique": 99,
                 "Durability": 85
             ],
-            verse: "Attack on Titan"
+            verse: "Attack on Titan",
+            workoutPlanTitle: "The Blade Master’s Routine",
+            warmUp: """
+            - Jump rope (1 min)
+            - Light jogging (2 min)
+            - Dynamic stretches (2 min)
+            """,
+            mainWorkout: """
+            1. Pull-Ups: 3 sets of 10 reps
+            2. Side Plank Rotations: 3 sets of 12 reps per side
+            3. Agility Ladder Drills: 3 rounds
+            4. Split Squats: 3 sets of 10 reps per leg
+            5. Endurance Run: 10 minutes at a steady pace
+            """,
+            finisher: """
+            1. Stretching: Focus on legs and shoulders (5 min)
+            2. Controlled Breathing: Relaxation phase (2 min)
+            """
         ),
         Character(
             name: "Roronoa Zoro",
@@ -73,7 +136,11 @@ struct CharacterData {
                 "Combat Technique": 90,
                 "Durability": 92
             ],
-            verse: "One Piece"
+            verse: "One Piece",
+            workoutPlanTitle: "",
+            warmUp: "",
+            mainWorkout: "",
+            finisher: ""
         ),
         Character(
             name: "Goku",
@@ -87,7 +154,11 @@ struct CharacterData {
                 "Combat Technique": 85,
                 "Durability": 95
             ],
-            verse: "Dragon Ball Z"
+            verse: "Dragon Ball Z",
+            workoutPlanTitle: "",
+            warmUp: "",
+            mainWorkout: "",
+            finisher: ""
         ),
         Character(
             name: "Yujiro Hanma",
@@ -101,7 +172,11 @@ struct CharacterData {
                 "Combat Technique": 98,
                 "Durability": 95
             ],
-            verse: "Baki"
+            verse: "Baki",
+            workoutPlanTitle: "",
+            warmUp: "",
+            mainWorkout: "",
+            finisher: ""
         ),
         Character(
             name: "Baki Hanma",
@@ -115,7 +190,11 @@ struct CharacterData {
                 "Combat Technique": 92,
                 "Durability": 87
             ],
-            verse: "Baki"
+            verse: "Baki",
+            workoutPlanTitle: "",
+            warmUp: "",
+            mainWorkout: "",
+            finisher: ""
         ),
         Character(
             name: "Retsu Kaioh",
@@ -129,7 +208,11 @@ struct CharacterData {
                 "Combat Technique": 93,
                 "Durability": 83
             ],
-            verse: "Baki"
+            verse: "Baki",
+            workoutPlanTitle: "",
+            warmUp: "",
+            mainWorkout: "",
+            finisher: ""
         ),
         Character(
             name: "Jack Hanma",
@@ -143,7 +226,11 @@ struct CharacterData {
                 "Combat Technique": 85,
                 "Durability": 92
             ],
-            verse: "Baki"
+            verse: "Baki",
+            workoutPlanTitle: "",
+            warmUp: "",
+            mainWorkout: "",
+            finisher: ""
         ),
         Character(
             name: "Doppo Orochi",
@@ -157,7 +244,11 @@ struct CharacterData {
                 "Combat Technique": 94,
                 "Durability": 85
             ],
-            verse: "Baki"
+            verse: "Baki",
+            workoutPlanTitle: "",
+            warmUp: "",
+            mainWorkout: "",
+            finisher: ""
         )
     ]
 }

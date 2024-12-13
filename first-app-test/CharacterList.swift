@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CharacterListView: View {
+    @State private var characters = CharacterData.allCharacters // State to manage updates
     @Binding var currentStep: FormStep
     @Binding var gender: String
     @Binding var weight: String
@@ -9,13 +10,12 @@ struct CharacterListView: View {
     @State private var searchText: String = "" // State to manage search text
     @State private var showProfileView = false
 
-    var characters = CharacterData.allCharacters
-
     var filteredCharacters: [Character] {
+        let sortedCharacters = characters.sorted { $0.isHearted && !$1.isHearted }
         if searchText.isEmpty {
-            return characters
+            return sortedCharacters
         } else {
-            return characters.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return sortedCharacters.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         }
     }
 
@@ -37,16 +37,16 @@ struct CharacterListView: View {
                 // Characters Grid
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                        ForEach(filteredCharacters) { character in
-                            NavigationLink(destination: CharacterDetailView(character: character)) {
+                        ForEach(filteredCharacters.indices, id: \.self) { index in
+                            NavigationLink(destination: CharacterDetailView(character: $characters[index])) {
                                 VStack {
-                                    Image(character.image)
+                                    Image(characters[index].image)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: UIScreen.main.bounds.width / 2.5, height: UIScreen.main.bounds.width / 2.5)
                                         .clipShape(RoundedRectangle(cornerRadius: 12))
                                         .shadow(radius: 5)
-                                    Text(character.name)
+                                    Text(characters[index].name)
                                         .font(.headline)
                                         .multilineTextAlignment(.center)
                                         .padding(.top, 8)
@@ -79,4 +79,3 @@ struct CharacterListView: View {
         }
     }
 }
-
