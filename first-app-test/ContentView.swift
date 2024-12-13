@@ -6,6 +6,7 @@ struct ContentView: View {
     @State private var gender: String = ""
     @State private var weight: String = ""
     @State private var height: String = ""
+    @State private var characters = CharacterData.allCharacters // Centralized state for characters
     
     var body: some View {
         ZStack {
@@ -14,9 +15,9 @@ struct ContentView: View {
                     .tag(0)
                 FormNavigation(currentStep: $currentStep, gender: $gender, weight: $weight, height: $height)
                     .tag(1)
-                CharacterListView(currentStep: $currentStep, gender: $gender, weight: $weight, height: $height)
+                CharacterListView(characters: $characters, currentStep: $currentStep, gender: $gender, weight: $weight, height: $height)
                     .tag(2)
-                TopCharactersView()
+                TopCharactersView(characters: $characters)
                     .tag(3)
             }
             
@@ -36,12 +37,6 @@ struct ContentView: View {
         }
     }
 }
-
-#Preview {
-    ContentView()
-        .preferredColorScheme(.dark)
-}
-
 
 #Preview {
     ContentView()

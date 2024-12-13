@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CharacterDetailView: View {
     @Binding var character: Character // Make it binding to allow updates
+    @Binding var characters: [Character] // Pass all characters
 
     @State private var selectedTab: String = "Stats" // Default tab
     @State private var showPopup: Bool = false // State to control popup visibility
@@ -59,7 +60,7 @@ struct CharacterDetailView: View {
 
                 if selectedTab == "Stats" {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                        ForEach(character.attributes.sorted(by: >), id: \.key) { attribute, score in
+                        ForEach(character.attributes.sorted(by: >), id: \ .key) { attribute, score in
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(attribute)
                                     .font(.headline)
@@ -173,6 +174,9 @@ struct CharacterDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     character.isHearted.toggle()
+                    if let index = characters.firstIndex(where: { $0.id == character.id }) {
+                        characters[index] = character // Update the main list
+                    }
                 }) {
                     Image(systemName: character.isHearted ? "heart.fill" : "heart")
                         .font(.title3)
@@ -214,8 +218,6 @@ struct CharacterDetailView: View {
         }
     }
 
-
-
     /// Method to level up the character
     private func levelUpCharacter() {
         let progressIncrement = max(10, 100 - (character.level * 5)) // Slows down as level increases
@@ -227,5 +229,4 @@ struct CharacterDetailView: View {
             character.level += 1
         }
     }
-
 }
