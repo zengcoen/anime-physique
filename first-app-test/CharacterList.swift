@@ -34,78 +34,89 @@ struct CharacterListView: View {
                     Menu {
                         Button("Sort by Favorite") {
                             sortOption = .isHearted
-                            characters.sort { $0.isHearted && !$1.isHearted }
                         }
                         Button("Sort by Highest Level") {
                             sortOption = .highestLevel
-                            characters.sort { $0.level > $1.level }
                         }
                     } label: {
                         HStack {
-                            Text("Sort") // Add the text
-                            Image(systemName: "line.horizontal.3.decrease.circle") // Icon
+                            Text("Sort")
+                            Image(systemName: "line.horizontal.3.decrease.circle")
                                 .font(.title2)
                         }
                     }
-                    .id(UUID()) // Force redraw on interaction
-
-
                 }
                 .padding([.horizontal, .top])
                 
                 // Characters Grid
                 ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                        ForEach(characters.indices, id: \.self) { index in
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 16) {
+                        ForEach(sortedCharacters.indices, id: \.self) { index in
                             NavigationLink(destination: CharacterDetailView(character: $characters[index], characters: $characters)) {
-                                VStack {
-                                    ZStack {
-                                        Image(characters[index].image)
+                                ZStack(alignment: .bottom) {
+                                    // Character Image
+                                    Image(characters[index].image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: UIScreen.main.bounds.width / 3.5, height: UIScreen.main.bounds.width / 3.5)
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                        .shadow(radius: 5)
+
+                                    // Level in the top-left corner
+                                    Text("\(characters[index].level)")
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding(8)
+                                        .background(Color.blue.opacity(0.8))
+                                        .clipShape(Circle())
+                                        .shadow(radius: 2)
+                                        .offset(
+                                            x: -(UIScreen.main.bounds.width / 3.5) / 2 + 10,
+                                            y: -(UIScreen.main.bounds.width / 3.5) / 2 - 32
+                                        )
+
+                                    // Heart icon in the top-right corner
+                                    if characters[index].isHearted {
+                                        Image(systemName: "heart.fill")
                                             .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: UIScreen.main.bounds.width / 2.5, height: UIScreen.main.bounds.width / 2.5)
-                                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                                            .shadow(radius: 5)
-                                        
-                                        // Level in the top-left corner, deeper into the corner
-                                        Text("\(characters[index].level)")
-                                            .font(.title2) // Bigger font size
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
-                                            .padding(10)
-                                            .background(Color.blue.opacity(0.8))
-                                            .clipShape(Circle())
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.red)
+                                            .frame(width: 24, height: 24)
                                             .shadow(radius: 2)
-                                            .offset(x: -UIScreen.main.bounds.width / 5.5, y: -UIScreen.main.bounds.width / 5.5) // Adjust offsets to place it closer to the corner
-
-                                        // Heart icon in the top-right corner, deeper into the corner
-                                        if characters[index].isHearted {
-                                            Image(systemName: "heart.fill")
-                                                .resizable() // Make the heart resizable to control its size
-                                                .aspectRatio(contentMode: .fit)
-                                                .foregroundColor(.red) // Red color for the heart
-                                                .frame(width: 30, height: 30) // Adjust size of the heart
-                                                .shadow(radius: 2) // Optional shadow for better visibility
-                                                .offset(x: UIScreen.main.bounds.width / 5.5, y: -UIScreen.main.bounds.width / 5.5)
-                                        }
-
+                                            .offset(
+                                                x: (UIScreen.main.bounds.width / 3.5) / 2 - 10,
+                                                y: -(UIScreen.main.bounds.width / 3.5) / 2 - 40
+                                            )
                                     }
-                                    Text(characters[index].name)
-                                        .font(.headline)
-                                        .foregroundColor(.white) // Set text color to white
-                                        .multilineTextAlignment(.center)
-                                        .padding(.top, 8)
 
+                                    // Gradient and Name at the bottom
+                                    ZStack {
+                                        // Gradient
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color.black.opacity(0.8), Color.clear]),
+                                            startPoint: .bottom,
+                                            endPoint: .top
+                                        )
+                                        .frame(height: UIScreen.main.bounds.width / 10)
+                                        .frame(maxWidth: .infinity) // Full width of the card
+
+                                        // Name on top of the gradient
+                                        Text(characters[index].name)
+                                            .font(.subheadline)
+                                            .fontWeight(.regular)
+                                            .foregroundColor(.white)
+                                            .padding(.bottom, 0) // Adds padding for better positioning
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .bottom) // Align at the bottom of the card
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
                                 }
+
                             }
                         }
                     }
                     .padding()
                 }
-
-
-
-
             }
             .toolbar {
                 // Title aligned to the left
@@ -114,7 +125,7 @@ struct CharacterListView: View {
                         .font(.title)
                         .fontWeight(.bold)
                 }
-
+                
                 // Profile button on the trailing side
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -125,7 +136,6 @@ struct CharacterListView: View {
                     }
                 }
             }
-
             .sheet(isPresented: $showProfileView) {
                 ProfileView(
                     currentStep: $currentStep,
